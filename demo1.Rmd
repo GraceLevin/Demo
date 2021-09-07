@@ -1,9 +1,17 @@
 ---
-title: "demo1"
+title: "Assignment 1"
 author: "Grace Levin"
 date: "9/6/2021"
 output: html_document
 ---
+#Introduction
+Our team was interested in looking at hospitals in relationship to flood risk areas. We have mapped hospitals in Boston and the area of 36 inch sea level rise that is anticipated by 2070. We played with different aesthetic choices that would make the map most legible and highlight hospitals that would be at risk of flooding, which is an important planning and public health consideration for the City of Boston. The data was taken from Analyze Boston.
+
+#Teamwork
+
+
+#Maps
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -33,6 +41,7 @@ ggplot(nbhoods) +
   geom_sf(data = hospitals, color = "red", size = 2)
 
 ```
+This is an example of a less effective map. The size of the dots makes it difficult to distinguish between hospital locations and the outline of the water creates visual distraction. It is also difficult to place the graphic in context of Boston since the neighborhoods are outlined so faintly compared to the boldness of the water and hospitals.   
 
 ```{r, echo=FALSE}
 ggplot(nbhoods) +
@@ -46,13 +55,13 @@ ggplot(nbhoods) +
 
 
 ```
-
+This map is more clear because the water has been made transparent so the relationship to the neighborhoods is more visible. We have also made the dots smaller and transparent so they are easier to distinguish. It was also helpful to get rid of the graph background to declutter the visual.
 
 ```{r, echo=FALSE}
 ggplot() +
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
-  geom_sf(data = sea_level_rise, color = NA, alpha = 0.6, aes(fill = "Sea Level Rise")) + 
-  geom_sf(data = hospitals, size = 1.5, alpha = 0.5, aes(color = "Hospitals")) +
+  geom_sf(data = sea_level_rise, color = NA, alpha = 0.4, aes(fill = "Sea Level Rise")) + 
+  geom_sf(data = hospitals, size = 1.9, alpha = 0.5, aes(color = "Hospitals")) +
   scale_fill_manual(values= "light blue", name ="") +
   scale_color_manual(values = c("orange"), name = "")+
   theme_void()+
@@ -62,4 +71,18 @@ ggplot() +
 
 
 ```
+Here we experimented with using different baselayers. I think the Cartolight base layer is effective in that we get the context of Boston without unnecessary information. We can also more clearly see where the sea rise overlaps with land.
+
+```{r}
+ggplot() +
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartodark") +
+  geom_sf(data = sea_level_rise, color = NA, alpha = 0.3, aes(fill = "Sea Level Rise")) + 
+  geom_sf(data = hospitals, size = 1.9, alpha = 0.6, aes(color = "Hospitals")) +
+  scale_fill_manual(values= "light blue", name ="") +
+  scale_color_manual(values = c("orange"), name = "")+
+  theme_void()+
+  labs(caption = "Map tiles and data from OpenStreetMap")
+```
+While the black background makes it slightly difficult to clearly see Boston, the contrast does emphasize the location of hospitals in relation to to the flood zone. 
+
 
